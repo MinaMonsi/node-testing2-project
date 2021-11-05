@@ -1,3 +1,5 @@
+const db = require('../../data/db-config')
+
 module.exports = {
     insert,
     update,
@@ -7,15 +9,16 @@ module.exports = {
   }
   
   function getAll() {
-    //return db('')
+    return db('products')
   }
   
   function getById(id) {
     return null
   }
   
-  async function insert() {
-   
+  async function insert(product) {
+    const [id]= await db('products').insert(product)
+    return db('products').where({id}).first()
   }
   
   async function update(id, changes) {
@@ -24,4 +27,5 @@ module.exports = {
   
   function remove(id) {
     return null
-  }
+  } 
+
