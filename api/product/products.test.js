@@ -42,5 +42,13 @@ describe("Products Model", ()=> {
         })
     })
 
+    describe('update function', ()=> {
+        it('updates products', async ()=>{
+            const [id] = await db('products').insert(product1)
+            await Products.update(id, {makeup_type: 'Mascara'})
+            const updated = await db('products').where({id}).first()
+            expect(updated.makeup_type).toBe('Mascara')
+        })
+    })
 
 })
