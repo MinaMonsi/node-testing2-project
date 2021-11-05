@@ -20,6 +20,7 @@ it('correct env var', ()=>{
     expect(process.env.DB_ENV).toBe("testing")
 })
 
+
 describe("Products Model", ()=> {
     describe('insert product', ()=>{
         it('add product to the db', async()=>{
@@ -34,5 +35,12 @@ describe("Products Model", ()=> {
             product = await db('products')
             expect(product).toHaveLength(2)
         })
+
+        it('inserted product and brand_name', async ()=>{
+            const product = await Products.insert(product1)//using insert function from products-model
+            expect(product).toMatchObject({id:1,...product})
+        })
     })
+
+
 })

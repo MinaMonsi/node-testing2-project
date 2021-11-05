@@ -22,7 +22,7 @@ module.exports = {
   }
   
   async function update(id, changes) {
-    
+    return db('products').update(changes).where({id})
   }
   
   function remove(id) {
