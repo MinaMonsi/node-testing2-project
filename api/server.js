@@ -5,7 +5,7 @@ const server = express();
 server.use(express.json());
 server.use('/api/products', productsRouter)
 
-server.use('*', (req,res) => {
+server.get('/', (req,res) => {
     res.json({api: "up"})
 })
 
