@@ -25,7 +25,9 @@ module.exports = {
     return db('products').update(changes).where({id})
   }
   
-  function remove(id) {
-    return null
+  async function remove(id) {
+    const product = await db('products').where({id}).first()
+    await db('products').where({id}).del()
+    return product
   } 
 

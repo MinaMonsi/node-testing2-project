@@ -50,5 +50,21 @@ describe("Products Model", ()=> {
             expect(updated.makeup_type).toBe('Mascara')
         })
     })
+    //check delete function in products router
+    describe('[DELETE]/ deletes product', ()=>{
+        it('removes product from the db', async ()=> {
+            const [id] = await db('products').insert(product1)
+            let product = await db('products').where({id}).first();
+            expect(product).toBeTruthy();
+            await request(server).delete('/products/'+ id)
+            product = await db('products').where({id}).first();
+            expect(product).toBeFalsy();
+        })
+        it('respond with deleted product', async ()=> {
+            await db('products').insert(product1)
+            let product = await request(server).delete('/products/1')
+            expect(product.body).toMatchObject(product1)
+        })
+    })
 
 })
